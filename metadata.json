@@ -1,0 +1,28 @@
+{
+	"name": "cristifalcas-etcd",
+	"version": "0.1.0",
+	"author": "Cristian Falcas",
+	"dependencies": 
+	[
+		
+	],
+
+	"license": "Apache-2.0",
+	"operatingsystem_support": 
+	[
+		
+	],
+
+	"project_page": "https://github.com/cristifalcas/puppet-etcd",
+	"requirements": 
+	[
+		
+	],
+
+	"source": "git@github.com:cristifalcas/puppet-etcd.git",
+	"summary": "Installs and configures etcd",
+	"tags": 
+	[
+		
+	]
+}

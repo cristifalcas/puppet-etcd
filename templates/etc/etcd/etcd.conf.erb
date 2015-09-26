@@ -1,0 +1,43 @@
+# [member]
+ETCD_NAME=<%= scope['etcd::etcd_name'] %>
+ETCD_DATA_DIR="<%= scope['etcd::etcd_data_dir'] %>"
+ETCD_SNAPSHOT_COUNTER="<%= scope['etcd::etcd_snapshot_counter'] %>"
+ETCD_HEARTBEAT_INTERVAL="<%= scope['etcd::etcd_heartbeat_interval'] %>"
+ETCD_ELECTION_TIMEOUT="<%= scope['etcd::etcd_election_timeout'] %>"
+ETCD_LISTEN_PEER_URLS="<%= scope['etcd::etcd_listen_peer_urls'] %>"
+ETCD_LISTEN_CLIENT_URLS="<%= scope['etcd::etcd_listen_client_urls'] %>"
+ETCD_MAX_SNAPSHOTS="<%= scope['etcd::etcd_max_snapshots'] %>"
+ETCD_MAX_WALS="<%= scope['etcd::etcd_max_wals'] %>"
+ETCD_CORS="<%= scope['etcd::etcd_cors'] %>"
+#
+<% if scope['etcd::enable_cluster'] then %>
+#[cluster]
+ETCD_INITIAL_ADVERTISE_PEER_URLS="<%= scope['etcd::etcd_initial_advertise_peer_urls'] %>"
+# if you use different ETCD_NAME (e.g. test), set ETCD_INITIAL_CLUSTER value for this name, i.e. "test=http://..."
+ETCD_INITIAL_CLUSTER="default=<%= scope['etcd::etcd_initial_cluster'] %>"
+ETCD_INITIAL_CLUSTER_STATE="<%= scope['etcd::etcd_initial_cluster_state'] %>"
+ETCD_INITIAL_CLUSTER_TOKEN="<%= scope['etcd::etcd_initial_cluster_token'] %>"
+ETCD_ADVERTISE_CLIENT_URLS="<%= scope['etcd::etcd_advertise_client_urls'] %>"
+ETCD_DISCOVERY="<%= scope['etcd::etcd_discovery'] %>"
+ETCD_DISCOVERY_SRV="<%= scope['etcd::etcd_discovery_srv'] %>"
+ETCD_DISCOVERY_FALLBACK="<%= scope['etcd::etcd_discovery_fallback'] %>"
+ETCD_DISCOVERY_PROXY="<%= scope['etcd::etcd_discovery_proxy'] %>"
+<% end -%>
+#
+#[proxy]
+ETCD_PROXY="<%= scope['etcd::etcd_proxy'] %>"
+#
+#[security]
+ETCD_CERT_FILE="<%= scope['etcd::etcd_cert_file'] %>"
+ETCD_KEY_FILE="<%= scope['etcd::etcd_key_file'] %>"
+ETCD_CLIENT_CERT_AUTH="<%= scope['etcd::etcd_client_cert_auth'] %>"
+ETCD_TRUSTED_CA_FILE="<%= scope['etcd::etcd_trusted_ca_file'] %>"
+ETCD_PEER_CERT_FILE="<%= scope['etcd::etcd_peer_cert_file'] %>"
+ETCD_PEER_KEY_FILE="<%= scope['etcd::etcd_peer_key_file'] %>"
+ETCD_PEER_CLIENT_CERT_AUTH="<%= scope['etcd::etcd_peer_client_cert_auth'] %>"
+ETCD_PEER_TRUSTED_CA_FILE="<%= scope['etcd::etcd_peer_trusted_ca_file'] %>"
+#
+#[logging]
+ETCD_DEBUG="<%= scope['etcd::etcd_debug'] %>"
+# examples for -log-package-levels etcdserver=WARNING,security=DEBUG
+ETCD_LOG_PACKAGE_LEVELS="<%= scope['etcd::etcd_log_package_levels'] %>"
