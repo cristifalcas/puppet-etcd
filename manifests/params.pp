@@ -7,43 +7,49 @@ class etcd::params {
   $service_state = running
   $service_enable = true
   # member options
-  $etcd_name = 'default'
-  $etcd_data_dir = '/var/lib/etcd/default.etcd'
-  $etcd_snapshot_counter = 10000
-  $etcd_heartbeat_interval = 100
-  $etcd_election_timeout = 1000
-  $etcd_listen_peer_urls = 'http://localhost:2380'
-  $etcd_listen_client_urls = 'http://localhost:2379'
-  $etcd_max_snapshots = 5
-  $etcd_max_wals = 5
-  $etcd_cors = ''
+  $etcd_name = $::hostname
+  $data_dir = "/var/lib/etcd/${etcd_name}.etcd"
+  $wal_dir = ''
+  $snapshot_counter = 10000
+  $heartbeat_interval = 100
+  $election_timeout = 1000
+  $listen_client_urls = 'http://localhost:2379'
+  $advertise_client_urls = 'http://localhost:2379,http://localhost:4001'
+  $max_snapshots = 5
+  $max_wals = 5
+  $cors = undef
 
   # cluster options
-  $enable_cluster = false
-  $etcd_initial_advertise_peer_urls = 'http://localhost:2380'
-  $etcd_initial_cluster = 'http://localhost:2380'
-  $etcd_initial_cluster_state = 'new'
-  $etcd_initial_cluster_token = 'etcd-cluster'
-  $etcd_advertise_client_urls = 'http://localhost:2379'
-  $etcd_discovery = ''
-  $etcd_discovery_srv = ''
-  $etcd_discovery_fallback = 'proxy'
-  $etcd_discovery_proxy = ''
+  $listen_peer_urls = 'http://localhost:2380'
+  $initial_advertise_peer_urls = 'http://localhost:2380,http://localhost:7001'
+  $initial_cluster = "${etcd_name}=http://localhost:2380,${etcd_name}=http://localhost:7001"
+  $initial_cluster_state = 'new'
+  $initial_cluster_token = 'etcd-cluster'
+  $discovery = undef
+  $discovery_srv = undef
+  $discovery_fallback = 'proxy'
+  $discovery_proxy = undef
+  $strict_reconfig_check = false
 
   # proxy
-  $etcd_proxy = 'off'
+  $proxy = undef
+  $proxy_failure_wait = 5000
+  $proxy_refresh_interval = 30000
+  $proxy_dial_timeout = 1000
+  $proxy_write_timeout = 5000
+  $proxy_read_timeout = 0
 
   # security
-  $etcd_cert_file = ''
-  $etcd_key_file = ''
-  $etcd_client_cert_auth = false
-  $etcd_trusted_ca_file = ''
-  $etcd_peer_cert_file = ''
-  $etcd_peer_key_file = ''
-  $etcd_peer_client_cert_auth = false
-  $etcd_peer_trusted_ca_file = ''
+  $cert_file = undef
+  $key_file = undef
+  $client_cert_auth = false
+  $trusted_ca_file = undef
+  $peer_cert_file = undef
+  $peer_key_file = undef
+  $peer_client_cert_auth = false
+  $peer_trusted_ca_file = undef
 
   # logging
-  $etcd_debug = false
-  $etcd_log_package_levels = ''
+  $debug = false
+  $log_package_levels = undef
 }

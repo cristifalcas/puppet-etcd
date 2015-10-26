@@ -1,15 +1,40 @@
 {
 	"name": "cristifalcas-etcd",
-	"version": "0.1.1",
+	"version": "0.8.0",
 	"author": "Cristian Falcas",
-	"dependencies": [],
+	"summary": "Installs and configures etcd",
 	"license": "Apache-2.0",
-	"operatingsystem_support": [],
 	"source": "git@github.com:cristifalcas/puppet-etcd.git",
 	"project_page": "https://github.com/cristifalcas/puppet-etcd",
 	"issues_url": "https://github.com/cristifalcas/puppet-etcd/issues",
 	"requirements": [],
-	"summary": "Installs and configures etcd",
+	"operatingsystem_support": [{
+			"operatingsystem": "RedHat",
+			"operatingsystemrelease": [ "7"
+			]
+		},{
+			"operatingsystem": "CentOS",
+			"operatingsystemrelease": [ "7"
+			]
+		},{
+			"operatingsystem": "OracleLinux",
+			"operatingsystemrelease": [ "7"
+			]
+		},{
+			"operatingsystem": "Scientific",
+			"operatingsystemrelease": [ "7"
+			]
+		},{
+			"operatingsystem": "Fedora",
+			"operatingsystemrelease": [ "21"
+			]
+		}
+	],
+	"dependencies": [{
+			"name": "puppetlabs/stdlib",
+			"version_requirement": "4.x"
+		}
+	],
 	"tags": [ "etcd"
 	]
 }

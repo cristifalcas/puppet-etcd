@@ -18,109 +18,233 @@
 #
 #  member
 # [*etcd_name*]
+#   Human-readable name for this member.
+#   Default: "default"
 #
-# [*etcd_data_dir*]
+# [*data_dir*]
+#   Path to the data directory.
+#   default: "${name}.etcd"
 #
-# [*etcd_snapshot_counter*]
+# [*wal_dir*]
+#   Path to the dedicated wal directory. If this flag is set, etcd will write the WAL
+#   files to the walDir rather than the dataDir. This allows a dedicated disk to be used,
+#   and helps avoid io competition between logging and other IO operations.
+#   default: ""
 #
-# [*etcd_heartbeat_interval*]
+# [*snapshot_counter*]
+#   Number of committed transactions to trigger a snapshot to disk.
+#   default: "10000"
 #
-# [*etcd_election_timeout*]
+# [*heartbeat_interval*]
+#   Time (in milliseconds) of a heartbeat interval.
+#   default: "100"
 #
-# [*etcd_listen_peer_urls*]
+# [*election_timeout*]
+#   Time (in milliseconds) for an election to timeout. See Documentation/tuning.md for details.
+#   default: "1000"
 #
-# [*etcd_listen_client_urls*]
+# [*listen_peer_urls*]
+#   List of URLs to listen on for peer traffic. This flag tells the etcd to accept incoming
+#   requests from its peers on the specified scheme://IP:port combinations. Scheme can be either
+#   http or https.If 0.0.0.0 is specified as the IP, etcd listens to the given port on all interfaces.
+#   If an IP address is given as well as a port, etcd will listen on the given port and interface.
+#   Multiple URLs may be used to specify a number of addresses and ports to listen on. The etcd will
+#   respond to requests from any of the listed addresses and ports.
+#   default: "http://localhost:2380,http://localhost:7001"
 #
-# [*etcd_max_snapshots*]
+# [*listen_client_urls*]
+#   List of URLs to listen on for client traffic. This flag tells the etcd to accept incoming requests
+#   from the clients on the specified scheme://IP:port combinations. Scheme can be either http or https.
+#   If 0.0.0.0 is specified as the IP, etcd listens to the given port on all interfaces. If an IP address
+#   is given as well as a port, etcd will listen on the given port and interface. Multiple URLs may be used
+#   to specify a number of addresses and ports to listen on. The etcd will respond to requests from any of
+#   the listed addresses and ports.
+#   default: "http://localhost:2379,http://localhost:4001"
 #
-# [*etcd_max_wals*]
+# [*max_snapshots*]
+#   Maximum number of snapshot files to retain (0 is unlimited)
+#   default: 5
 #
-# [*etcd_cors*]
+# [*max_wals*]
+#   Maximum number of wal files to retain (0 is unlimited)
+#   default: 5
+#
+# [*cors*]
+#   Comma-separated white list of origins for CORS (cross-origin resource sharing).
+#   default: none
 #
 # cluster
-# [*enable_cluster*]
+# [*initial_advertise_peer_urls*]
+#   List of this member's peer URLs to advertise to the rest of the cluster. These addresses
+#   are used for communicating etcd data around the cluster. At least one must be routable to
+#   all cluster members. These URLs can contain domain names.
+#   default: "http://localhost:2380,http://localhost:7001"
 #
-# [*etcd_initial_advertise_peer_urls*]
+# [*initial_cluster*]
+#   Initial cluster configuration for bootstrapping.
+#   default: "default=http://localhost:2380,default=http://localhost:7001"
 #
-# [*etcd_initial_cluster*]
+# [*initial_cluster_state*]
+#   Initial cluster state ("new" or "existing"). Set to new for all members present during initial
+#   static or DNS bootstrapping. If this option is set to existing, etcd will attempt to join the
+#   existing cluster. If the wrong value is set, etcd will attempt to start but fail safely.
+#   default: "new"
 #
-# [*etcd_initial_cluster_state*]
+# [*initial_cluster_token*]
+#   Initial cluster token for the etcd cluster during bootstrap.
+#   default: "etcd-cluster"
 #
-# [*etcd_initial_cluster_token*]
+# [*advertise_client_urls*]
+#   List of this member's client URLs to advertise to the rest of the cluster. These URLs can contain domain names.
+#   default: "http://localhost:2379,http://localhost:4001"
 #
-# [*etcd_advertise_client_urls*]
+# [*discovery*]
+#   Discovery URL used to bootstrap the cluster.
+#   default: none
 #
-# [*etcd_discovery*]
+# [*discovery_srv*]
+#   DNS srv domain used to bootstrap the cluster.
+#   default: none
 #
-# [*etcd_discovery_srv*]
+# [*discovery_fallback*]
+#   Expected behavior ("exit" or "proxy") when discovery services fails.
+#   default: "proxy"
 #
-# [*etcd_discovery_fallback*]
+# [*discovery_proxy*]
+#   HTTP proxy to use for traffic to discovery service.
+#   default: none
 #
-# [*etcd_discovery_proxy*]
+# [*strict_reconfig_check*]
+#   Reject reconfiguration requests that would cause quorum loss.
+#   default: false
 #
 # proxy
-# [*etcd_cert_file*]
+# [*proxy*]
+#   Proxy mode setting ("off", "readonly" or "on").
+#   default: "off"
 #
-# [*etcd_key_file*]
+# [*proxy_failure_wait*]
+#   Time (in milliseconds) an endpoint will be held in a failed state before being reconsidered for proxied requests.
+#   default: 5000
 #
-# [*etcd_client_cert_auth*]
+# [*proxy_refresh_interval*]
+#   Time (in milliseconds) of the endpoints refresh interval.
+#   default: 30000
 #
-# [*etcd_trusted_ca_file*]
+# [*proxy_dial_timeout*]
+#   Time (in milliseconds) for a dial to timeout or 0 to disable the timeout
+#   default: 1000
 #
-# [*etcd_peer_cert_file*]
+# [*proxy_write_timeout*]
+#   Time (in milliseconds) for a write to timeout or 0 to disable the timeout.
+#   default: 5000
 #
-# [*etcd_peer_key_file*]
+# [*proxy_read_timeout*]
+#   Time (in milliseconds) for a read to timeout or 0 to disable the timeout.
+#   Don't change this value if you use watches because they are using long polling requests.
+#   default: 0
 #
-# [*etcd_peer_client_cert_auth*]
+# security
+# [*cert_file*]
+#   Path to the client server TLS cert file.
+#   default: none
 #
-# [*etcd_peer_trusted_ca_file*]
+# [*key_file*]
+#   Path to the client server TLS key file.
+#   default: none
+#
+# [*client_cert_auth*]
+#   Enable client cert authentication.
+#   default: false
+#
+# [*trusted_ca_file*]
+#   Path to the client server TLS trusted CA key file.
+#   default: none
+#
+# [*peer_cert_file*]
+#   Path to the peer server TLS cert file.
+#   default: none
+#
+# [*peer_key_file*]
+#   Path to the peer server TLS key file.
+#   default: none
+#
+# [*peer_client_cert_auth*]
+#   Enable peer client cert authentication.
+#   default: false
+#
+# [*peer_trusted_ca_file*]
+#   Path to the peer server TLS trusted CA file.
+#   default: none
 #
 # logging
-# [*etcd_debug*]
+# [*debug*]
+#   Drop the default log level to DEBUG for all subpackages.
+#   default: false (INFO for all packages)
 #
-# [*etcd_log_package_levels*]
+# [*log_package_levels*]
+#   Set individual etcd subpackages to specific log levels. An example being etcdserver=WARNING,security=DEBUG
+#   default: none (INFO for all packages)
 #
+
 class etcd (
-  $ensure                           = $etcd::params::ensure,
-  $service_state                    = $etcd::params::service_state,
-  $service_enable                   = $etcd::params::service_enable,
+  $ensure                      = $etcd::params::ensure,
+  $service_state               = $etcd::params::service_state,
+  $service_enable              = $etcd::params::service_enable,
   # member
-  $etcd_name                        = $etcd::params::etcd_name,
-  $etcd_data_dir                    = $etcd::params::etcd_data_dir,
-  $etcd_snapshot_counter            = $etcd::params::etcd_snapshot_counter,
-  $etcd_heartbeat_interval          = $etcd::params::etcd_heartbeat_interval,
-  $etcd_election_timeout            = $etcd::params::etcd_election_timeout,
-  $etcd_listen_peer_urls            = $etcd::params::etcd_listen_peer_urls,
-  $etcd_listen_client_urls          = $etcd::params::etcd_listen_client_urls,
-  $etcd_max_snapshots               = $etcd::params::etcd_max_snapshots,
-  $etcd_max_wals                    = $etcd::params::etcd_max_wals,
-  $etcd_cors                        = $etcd::params::etcd_cors,
+  $etcd_name                   = $etcd::params::etcd_name,
+  $data_dir                    = $etcd::params::data_dir,
+  $wal_dir                     = $etcd::params::wal_dir,
+  $snapshot_counter            = $etcd::params::snapshot_counter,
+  $heartbeat_interval          = $etcd::params::heartbeat_interval,
+  $election_timeout            = $etcd::params::election_timeout,
+  $listen_client_urls          = $etcd::params::listen_client_urls,
+  $advertise_client_urls       = $etcd::params::advertise_client_urls,
+  $max_snapshots               = $etcd::params::max_snapshots,
+  $max_wals                    = $etcd::params::max_wals,
+  $cors                        = $etcd::params::cors,
   # cluster
-  $enable_cluster                   = $etcd::params::enable_cluster,
-  $etcd_initial_advertise_peer_urls = $etcd::params::etcd_initial_advertise_peer_urls,
-  $etcd_initial_cluster             = $etcd::params::etcd_initial_cluster,
-  $etcd_initial_cluster_state       = $etcd::params::etcd_initial_cluster_state,
-  $etcd_initial_cluster_token       = $etcd::params::etcd_initial_cluster_token,
-  $etcd_advertise_client_urls       = $etcd::params::etcd_advertise_client_urls,
-  $etcd_discovery                   = $etcd::params::etcd_discovery,
-  $etcd_discovery_srv               = $etcd::params::etcd_discovery_srv,
-  $etcd_discovery_fallback          = $etcd::params::etcd_discovery_fallback,
-  $etcd_discovery_proxy             = $etcd::params::etcd_discovery_proxy,
+  $listen_peer_urls            = $etcd::params::listen_peer_urls,
+  $initial_advertise_peer_urls = $etcd::params::initial_advertise_peer_urls,
+  $initial_cluster             = $etcd::params::initial_cluster,
+  $initial_cluster_state       = $etcd::params::initial_cluster_state,
+  $initial_cluster_token       = $etcd::params::initial_cluster_token,
+  $discovery                   = $etcd::params::discovery,
+  $discovery_srv               = $etcd::params::discovery_srv,
+  $discovery_fallback          = $etcd::params::discovery_fallback,
+  $discovery_proxy             = $etcd::params::discovery_proxy,
+  $strict_reconfig_check       = $etcd::params::strict_reconfig_check,
   # proxy
-  $etcd_proxy                       = $etcd::params::etcd_proxy,
+  $proxy                       = $etcd::params::proxy,
+  $proxy_failure_wait          = $etcd::params::proxy_failure_wait,
+  $proxy_refresh_interval      = $etcd::params::proxy_refresh_interval,
+  $proxy_dial_timeout          = $etcd::params::proxy_dial_timeout,
+  $proxy_write_timeout         = $etcd::params::proxy_write_timeout,
+  $proxy_read_timeout          = $etcd::params::proxy_read_timeout,
   # security
-  $etcd_cert_file                   = $etcd::params::etcd_cert_file,
-  $etcd_key_file                    = $etcd::params::etcd_key_file,
-  $etcd_client_cert_auth            = $etcd::params::etcd_client_cert_auth,
-  $etcd_trusted_ca_file             = $etcd::params::etcd_trusted_ca_file,
-  $etcd_peer_cert_file              = $etcd::params::etcd_peer_cert_file,
-  $etcd_peer_key_file               = $etcd::params::etcd_peer_key_file,
-  $etcd_peer_client_cert_auth       = $etcd::params::etcd_peer_client_cert_auth,
-  $etcd_peer_trusted_ca_file        = $etcd::params::etcd_peer_trusted_ca_file,
+  $cert_file                   = $etcd::params::cert_file,
+  $key_file                    = $etcd::params::key_file,
+  $client_cert_auth            = $etcd::params::client_cert_auth,
+  $trusted_ca_file             = $etcd::params::trusted_ca_file,
+  $peer_cert_file              = $etcd::params::peer_cert_file,
+  $peer_key_file               = $etcd::params::peer_key_file,
+  $peer_client_cert_auth       = $etcd::params::peer_client_cert_auth,
+  $peer_trusted_ca_file        = $etcd::params::peer_trusted_ca_file,
   # logging
-  $etcd_debug                       = $etcd::params::etcd_debug,
-  $etcd_log_package_levels          = $etcd::params::etcd_log_package_levels,
+  $debug                       = $etcd::params::debug,
+  $log_package_levels          = $etcd::params::log_package_levels,
 ) inherits etcd::params {
+  if $proxy {
+    $real_proxy = $proxy
+  } else {
+    $str = join($initial_cluster, '|')
+    if $::fqdn in $str or $::ipaddress in $str {
+      $real_proxy = 'off'
+    } else {
+      $real_proxy = 'on'
+    }
+  }
+
   class { 'etcd::install': } ->
   class { 'etcd::config': } ~>
   class { 'etcd::service': }
