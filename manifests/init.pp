@@ -237,7 +237,7 @@ class etcd (
   if $proxy {
     $real_proxy = $proxy
   } else {
-    $str = join($initial_cluster, '|')
+    $str = join(any2array($initial_cluster), '|')
     if $::fqdn in $str or $::ipaddress in $str {
       $real_proxy = 'off'
     } else {
@@ -245,9 +245,9 @@ class etcd (
     }
   }
 
-  class { 'etcd::install': } ->
-  class { 'etcd::config': } ~>
-  class { 'etcd::service': }
+  class { '::etcd::install': } ->
+  class { '::etcd::config': } ~>
+  class { '::etcd::service': }
 
   contain 'etcd::install'
   contain 'etcd::config'

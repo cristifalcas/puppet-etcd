@@ -2,7 +2,7 @@
 #
 class etcd::config {
   file { '/etc/etcd/etcd.conf':
-    ensure  => present,
+    ensure  => 'file',
     content => template("${module_name}/etc/etcd/etcd.conf.erb"),
   }
 }

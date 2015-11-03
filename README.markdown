@@ -1,4 +1,5 @@
 # etcd #
+[![Build Status](https://travis-ci.org/cristifalcas/puppet-etcd.png?branch=master)](https://travis-ci.org/cristifalcas/puppet-etcd)
 
 This module installs and configures etcd.
 

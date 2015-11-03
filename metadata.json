@@ -1,6 +1,6 @@
 {
 	"name": "cristifalcas-etcd",
-	"version": "0.8.0",
+	"version": "0.9.0",
 	"author": "Cristian Falcas",
 	"summary": "Installs and configures etcd",
 	"license": "Apache-2.0",
