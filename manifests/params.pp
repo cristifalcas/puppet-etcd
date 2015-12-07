@@ -4,25 +4,22 @@
 #
 class etcd::params {
   $ensure = 'present'
-  $service_state = running
+  $service_ensure = 'running'
   $service_enable = true
   # member options
-  $etcd_name = $::hostname
-  $data_dir = "/var/lib/etcd/${etcd_name}.etcd"
   $wal_dir = ''
   $snapshot_counter = 10000
   $heartbeat_interval = 100
   $election_timeout = 1000
-  $listen_client_urls = 'http://localhost:2379'
-  $advertise_client_urls = 'http://localhost:2379,http://localhost:4001'
+  $listen_client_urls = ['http://localhost:2379', 'http://localhost:4001']
+  $advertise_client_urls = ['http://localhost:2379', 'http://localhost:4001']
   $max_snapshots = 5
   $max_wals = 5
   $cors = undef
 
   # cluster options
-  $listen_peer_urls = 'http://localhost:2380'
-  $initial_advertise_peer_urls = 'http://localhost:2380,http://localhost:7001'
-  $initial_cluster = "${etcd_name}=http://localhost:2380,${etcd_name}=http://localhost:7001"
+  $listen_peer_urls = ['http://localhost:2380', 'http://localhost:7001']
+  $initial_advertise_peer_urls = ['http://localhost:2380']
   $initial_cluster_state = 'new'
   $initial_cluster_token = 'etcd-cluster'
   $discovery = undef

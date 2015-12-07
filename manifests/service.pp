@@ -4,7 +4,7 @@
 #
 class etcd::service {
   service { 'etcd':
-    ensure => $etcd::service_state,
+    ensure => $etcd::service_ensure,
     enable => $etcd::service_enable,
   }
 }

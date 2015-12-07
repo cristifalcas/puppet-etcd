@@ -8,7 +8,7 @@
 #   Passed to the docker package.
 #   Defaults to present
 #
-# [*service_state*]
+# [*service_ensure*]
 #   Whether you want to kube daemons to start up
 #   Defaults to running
 #
@@ -189,11 +189,11 @@
 
 class etcd (
   $ensure                      = $etcd::params::ensure,
-  $service_state               = $etcd::params::service_state,
+  $service_ensure              = $etcd::params::service_ensure,
   $service_enable              = $etcd::params::service_enable,
   # member
-  $etcd_name                   = $etcd::params::etcd_name,
-  $data_dir                    = $etcd::params::data_dir,
+  $etcd_name                   = 'default',
+  $data_dir                    = "/var/lib/etcd/${etcd_name}.etcd",
   $wal_dir                     = $etcd::params::wal_dir,
   $snapshot_counter            = $etcd::params::snapshot_counter,
   $heartbeat_interval          = $etcd::params::heartbeat_interval,
@@ -206,7 +206,7 @@ class etcd (
   # cluster
   $listen_peer_urls            = $etcd::params::listen_peer_urls,
   $initial_advertise_peer_urls = $etcd::params::initial_advertise_peer_urls,
-  $initial_cluster             = $etcd::params::initial_cluster,
+  $initial_cluster             = ["${etcd_name}=http://localhost:2380", "${etcd_name}=http://localhost:7001"],
   $initial_cluster_state       = $etcd::params::initial_cluster_state,
   $initial_cluster_token       = $etcd::params::initial_cluster_token,
   $discovery                   = $etcd::params::discovery,
@@ -234,7 +234,31 @@ class etcd (
   $debug                       = $etcd::params::debug,
   $log_package_levels          = $etcd::params::log_package_levels,
 ) inherits etcd::params {
+  validate_integer([
+    $snapshot_counter,
+    $heartbeat_interval,
+    $election_timeout,
+    $max_snapshots,
+    $max_wals,
+    $proxy_failure_wait,
+    $proxy_refresh_interval,
+    $proxy_dial_timeout,
+    $proxy_write_timeout,
+    $proxy_read_timeout,
+    ])
+  validate_bool($strict_reconfig_check, $client_cert_auth, $peer_client_cert_auth, $debug)
+  validate_re($initial_cluster_state, '^(new|existing)$')
+  validate_re($discovery_fallback, '^(proxy|exit)$')
+  validate_absolute_path($data_dir)
+  if $cert_file { validate_absolute_path($cert_file) }
+  if $key_file { validate_absolute_path($key_file) }
+  if $trusted_ca_file { validate_absolute_path($trusted_ca_file) }
+  if $peer_cert_file { validate_absolute_path($peer_cert_file) }
+  if $peer_key_file { validate_absolute_path($peer_key_file) }
+  if $peer_trusted_ca_file { validate_absolute_path($peer_trusted_ca_file) }
+
   if $proxy {
+    validate_re($proxy, '^(on|off|readonly)$')
     $real_proxy = $proxy
   } else {
     $str = join(any2array($initial_cluster), '|')
@@ -245,11 +269,11 @@ class etcd (
     }
   }
 
-  class { '::etcd::install': } ->
-  class { '::etcd::config': } ~>
-  class { '::etcd::service': }
-
   contain 'etcd::install'
   contain 'etcd::config'
   contain 'etcd::service'
+
+  Class['etcd::install'] ->
+  Class['etcd::config'] ~>
+  Class['etcd::service']
 }
