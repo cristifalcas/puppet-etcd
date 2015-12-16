@@ -1,6 +1,6 @@
 {
 	"name": "cristifalcas-etcd",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": "Cristian Falcas",
 	"summary": "Installs and configures etcd",
 	"license": "Apache-2.0",
@@ -32,7 +32,7 @@
 	],
 	"dependencies": [{
 			"name": "puppetlabs/stdlib",
-			"version_requirement": "4.x"
+			"version_requirement": ">= 4.6.0 < 5.0.0"
 		}
 	],
 	"tags": [ "etcd"
