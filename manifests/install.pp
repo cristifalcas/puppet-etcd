@@ -5,9 +5,9 @@ class etcd::install {
     package { 'etcd': ensure => $etcd::ensure, }
   } else {
     # make sure /etc/etcd is present
-	file {'/etc/etcd/':
-	  ensure => directory,
-	  before => File['/etc/etcd/etcd.conf'],
-	}
+    file {'/etc/etcd/':
+      ensure => directory,
+      before => File['/etc/etcd/etcd.conf'],
+    }
   }
 }
