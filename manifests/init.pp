@@ -201,8 +201,8 @@ class etcd (
   $service_ensure              = $etcd::params::service_ensure,
   $service_enable              = $etcd::params::service_enable,
   # package and service
-  $manage_package              = true
-  $manage_service              = true
+  $manage_package              = true,
+  $manage_service              = true,
   # member
   $etcd_name                   = 'default',
   $data_dir                    = "/var/lib/etcd/${etcd_name}.etcd",
