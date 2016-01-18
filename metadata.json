@@ -1,6 +1,6 @@
 {
 	"name": "cristifalcas-etcd",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"author": "Cristian Falcas",
 	"summary": "Installs and configures etcd",
 	"license": "Apache-2.0",
@@ -10,19 +10,23 @@
 	"requirements": [],
 	"operatingsystem_support": [{
 			"operatingsystem": "RedHat",
-			"operatingsystemrelease": [ "7"
+			"operatingsystemrelease": [ "6",
+				"7"
 			]
 		},{
 			"operatingsystem": "CentOS",
-			"operatingsystemrelease": [ "7"
+			"operatingsystemrelease": [ "6",
+				"7"
 			]
 		},{
 			"operatingsystem": "OracleLinux",
-			"operatingsystemrelease": [ "7"
+			"operatingsystemrelease": [ "6",
+				"7"
 			]
 		},{
 			"operatingsystem": "Scientific",
-			"operatingsystemrelease": [ "7"
+			"operatingsystemrelease": [ "6",
+				"7"
 			]
 		},{
 			"operatingsystem": "Fedora",
