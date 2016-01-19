@@ -1,7 +1,7 @@
 # == Class: etcd::config
 #
 class etcd::config {
-  case operatingsystemmajrelease {
+  case $::operatingsystemmajrelease {
     6       : {
       file { '/etc/sysconfig/etcd.conf':
         ensure  => 'file',
