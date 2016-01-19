@@ -16,7 +16,7 @@ class etcd::config {
       }
     }
     default : {
-      fail("Unsupported OS.")
+      fail('Unsupported OS.')
     }
   }
 }
