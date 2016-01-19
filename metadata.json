@@ -32,6 +32,9 @@
 			"operatingsystem": "Fedora",
 			"operatingsystemrelease": [ "21"
 			]
+		},
+		{	"operatingsystem": "Debian",
+			"operatingsystemrelease": [ "stretch/sid"]
 		}
 	],
 	"dependencies": [{
