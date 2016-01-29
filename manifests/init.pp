@@ -16,6 +16,15 @@
 #   Whether you want to kube daemons to start up at boot
 #   Defaults to true
 #
+#  package and service
+# [*manage_package*]
+#   Wheter this module should install etcd.
+#   Defaults to true
+#
+# [*manage_service*]
+#   Wheter this module should manage the etcd service.
+#   Defaults to true
+#
 #  member
 # [*etcd_name*]
 #   Human-readable name for this member.
@@ -191,6 +200,9 @@ class etcd (
   $ensure                      = $etcd::params::ensure,
   $service_ensure              = $etcd::params::service_ensure,
   $service_enable              = $etcd::params::service_enable,
+  # package and service
+  $manage_package              = true,
+  $manage_service              = true,
   # member
   $etcd_name                   = 'default',
   $data_dir                    = "/var/lib/etcd/${etcd_name}.etcd",
