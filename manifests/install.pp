@@ -1,5 +1,7 @@
 # == Class: etcd
 #
 class etcd::install {
-  package { 'etcd': ensure => $etcd::ensure, }
+  if $::etcd::manage_package {
+    package { 'etcd': ensure => $::etcd::ensure, }
+  }
 }

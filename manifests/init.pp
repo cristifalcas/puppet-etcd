@@ -8,6 +8,18 @@
 #   Passed to the docker package.
 #   Defaults to present
 #
+# [*manage_package*]
+#   If the module should manage the package
+#   Defaults to running
+#
+# [*manage_service*]
+#   If the module should manage the service
+#   Defaults to running
+#
+# [*config_file_path*]
+#   Where the config file should be put
+#   Defaults to running
+#
 # [*service_ensure*]
 #   Whether you want to kube daemons to start up
 #   Defaults to running
@@ -186,9 +198,11 @@
 #   Set individual etcd subpackages to specific log levels. An example being etcdserver=WARNING,security=DEBUG
 #   default: none (INFO for all packages)
 #
-
 class etcd (
   $ensure                      = $etcd::params::ensure,
+  $manage_package              = $etcd::params::manage_package,
+  $manage_service              = $etcd::params::manage_service,
+  $config_file_path            = $etcd::params::config_file_path,
   $service_ensure              = $etcd::params::service_ensure,
   $service_enable              = $etcd::params::service_enable,
   # member

@@ -4,6 +4,25 @@
 #
 class etcd::params {
   $ensure = 'present'
+  $manage_package = true
+  $manage_service = true
+
+  case $::osfamily {
+    'RedHat' : {
+      case $::operatingsystemmajrelease {
+        '6'     : { $config_file_path = '/etc/sysconfig/etcd.conf' }
+        '7'     : { $config_file_path = '/etc/etcd/etcd.conf' }
+        default : { fail('Unsupported RedHat release.') }
+      }
+    }
+    'Debian' : {
+      $config_file_path = '/etc/default/etcd.conf'
+    }
+    default  : {
+      fail('Unsupported OS.')
+    }
+  }
+
   $service_ensure = 'running'
   $service_enable = true
   # member options
