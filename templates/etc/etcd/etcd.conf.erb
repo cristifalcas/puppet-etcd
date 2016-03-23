@@ -9,7 +9,7 @@ ETCD_LISTEN_CLIENT_URLS="<%= Array(scope['etcd::listen_client_urls']).join(',') 
 ETCD_ADVERTISE_CLIENT_URLS="<%= Array(scope['etcd::advertise_client_urls']).join(',') %>"
 ETCD_MAX_SNAPSHOTS="<%= scope['etcd::max_snapshots'] %>"
 ETCD_MAX_WALS="<%= scope['etcd::max_wals'] %>"
-<% if @cors then -%>ETCD_CORS="<%= scope['etcd::cors'] %>"
+<% if @cors then -%>ETCD_CORS="<%= Array(scope['etcd::cors']).join(',') %>"
 <% end -%>
 #
 <% if @real_proxy and @real_proxy != 'off' then -%>
