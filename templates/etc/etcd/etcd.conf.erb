@@ -9,10 +9,11 @@ ETCD_LISTEN_CLIENT_URLS="<%= Array(scope['etcd::listen_client_urls']).join(',') 
 ETCD_ADVERTISE_CLIENT_URLS="<%= Array(scope['etcd::advertise_client_urls']).join(',') %>"
 ETCD_MAX_SNAPSHOTS="<%= scope['etcd::max_snapshots'] %>"
 ETCD_MAX_WALS="<%= scope['etcd::max_wals'] %>"
-<% if @cors then -%>ETCD_CORS="<%= Array(scope['etcd::cors']).join(',') %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::cors']) -%>
+ETCD_CORS="<%= Array(scope['etcd::cors']).join(',') %>"
 <% end -%>
 #
-<% if @real_proxy and @real_proxy != 'off' then -%>
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::real_proxy']) and scope['etcd::real_proxy'] != 'off' -%>
 #[proxy]
 ETCD_PROXY="<%= scope['etcd::real_proxy'] %>"
 ETCD_PROXY_FAILURE_WAIT="<%= scope['etcd::proxy_failure_wait'] %>"
@@ -28,32 +29,42 @@ ETCD_INITIAL_ADVERTISE_PEER_URLS="<%= Array(scope['etcd::initial_advertise_peer_
 ETCD_INITIAL_CLUSTER="<%= Array(scope['etcd::initial_cluster']).join(',') %>"
 ETCD_INITIAL_CLUSTER_STATE="<%= scope['etcd::initial_cluster_state'] %>"
 ETCD_INITIAL_CLUSTER_TOKEN="<%= scope['etcd::initial_cluster_token'] %>"
-<% if @discovery then -%>ETCD_DISCOVERY="<%= scope['etcd::discovery'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::discovery']) -%>
+ETCD_DISCOVERY="<%= scope['etcd::discovery'] %>"
 <% end -%>
-<% if @discovery_srv then -%>ETCD_DISCOVERY_SRV="<%= scope['etcd::discovery_srv'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::discovery_srv']) -%>
+ETCD_DISCOVERY_SRV="<%= scope['etcd::discovery_srv'] %>"
 <% end -%>
 ETCD_DISCOVERY_FALLBACK="<%= scope['etcd::discovery_fallback'] %>"
-<% if @discovery_proxy then -%>ETCD_DISCOVERY_PROXY="<%= scope['etcd::discovery_proxy'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::discovery_proxy']) -%>
+ETCD_DISCOVERY_PROXY="<%= scope['etcd::discovery_proxy'] %>"
 <% end -%>
 ETCD_STRICT_RECONFIG_CHECK=<%= scope['etcd::strict_reconfig_check'] %>
 #
 #[security]
-<% if @cert_file then -%>ETCD_CERT_FILE="<%= scope['etcd::cert_file'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::cert_file']) -%>
+ETCD_CERT_FILE="<%= scope['etcd::cert_file'] %>"
 <% end -%>
-<% if @key_file then -%>ETCD_KEY_FILE="<%= scope['etcd::key_file'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::key_file']) -%>
+ETCD_KEY_FILE="<%= scope['etcd::key_file'] %>"
 <% end -%>
 ETCD_CLIENT_CERT_AUTH=<%= scope['etcd::client_cert_auth'] %>
-<% if @trusted_ca_file then -%>ETCD_TRUSTED_CA_FILE="<%= scope['etcd::trusted_ca_file'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::trusted_ca_file']) -%>
+ETCD_TRUSTED_CA_FILE="<%= scope['etcd::trusted_ca_file'] %>"
 <% end -%>
-<% if @peer_cert_file then -%>ETCD_PEER_CERT_FILE="<%= scope['etcd::peer_cert_file'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_cert_file']) -%>
+ETCD_PEER_CERT_FILE="<%= scope['etcd::peer_cert_file'] %>"
 <% end -%>
-<% if @peer_key_file then -%>ETCD_PEER_KEY_FILE="<%= scope['etcd::peer_key_file'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_key_file']) -%>
+ETCD_PEER_KEY_FILE="<%= scope['etcd::peer_key_file'] %>"
 <% end -%>
 ETCD_PEER_CLIENT_CERT_AUTH=<%= scope['etcd::peer_client_cert_auth'] %>
-<% if @peer_trusted_ca_file then -%>ETCD_PEER_TRUSTED_CA_FILE="<%= scope['etcd::peer_trusted_ca_file'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_trusted_ca_file']) -%>
+ETCD_PEER_TRUSTED_CA_FILE="<%= scope['etcd::peer_trusted_ca_file'] %>"
 <% end -%>
 #
 #[logging]
 ETCD_DEBUG=<%= scope['etcd::debug'] %>
-<% if @log_package_levels then -%>ETCD_LOG_PACKAGE_LEVELS="<%= scope['etcd::log_package_levels'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::log_package_levels']) -%>
+ETCD_LOG_PACKAGE_LEVELS="<%= scope['etcd::log_package_levels'] %>"
 <% end -%>
