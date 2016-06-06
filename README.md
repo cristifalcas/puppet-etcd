@@ -12,7 +12,7 @@ Because of the way etcd is working, you can't change any of the initial cluster 
     initial_cluster_state
     initial_cluster_token
 
-This is annoyng if you first bootstraped the cluster in http mode and you want to add ssl after that to initial_cluster parameter.
+This is annoying if you first bootstraped the cluster in http mode and you want to add ssl after that to initial_cluster parameter.
 
 Solution:
 * Don't care. Even if the protocol is http, the communication will be over ssl
