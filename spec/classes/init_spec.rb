@@ -1,17 +1,14 @@
 require 'spec_helper'
 
-describe 'etcd' do
-  context 'with defaults for all parameters on RedHat' do
-    let :facts do
-      {
-        :kernel   => 'Linux',
-        :osfamily => 'RedHat',
-        :operatingsystemmajrelease => '7',
-        :fqdn => 'my_hostname.domain.net',
-        :ipaddress => '1.2.3.4',
-      }
+describe 'etcd', :type => :class do
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:facts) do
+        facts.merge({:puppetversion => Puppet.version})
+      end
+      it 'test default install' do
+        is_expected.to compile.with_all_deps
+      end
     end
-
-    it { should contain_class('etcd') }
   end
 end
