@@ -149,3 +149,11 @@ checking if $::fqdn or $::ipaddress appears in initial_cluster parameter.
       peer_trusted_ca_file        => '/etc/pki/puppet_certs/etcd/ca_cert.pem',
       debug     => true,
     }
+
+## Journald forward:
+
+The class support a parameter called journald_forward_enable.
+
+This was added because of the PIPE signal that is sent to go programs when systemd-journald dies.
+
+For more information read here: https://github.com/projectatomic/forward-journald

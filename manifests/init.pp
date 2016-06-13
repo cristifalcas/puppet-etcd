@@ -198,6 +198,9 @@
 #   Set individual etcd subpackages to specific log levels. An example being etcdserver=WARNING,security=DEBUG
 #   default: none (INFO for all packages)
 #
+# [*journald_forward_enable*]
+#   Enable log forwarding via journald_forward_enable
+#
 class etcd (
   $ensure                      = $etcd::params::ensure,
   $manage_package              = $etcd::params::manage_package,
@@ -247,6 +250,7 @@ class etcd (
   # logging
   $debug                       = $etcd::params::debug,
   $log_package_levels          = $etcd::params::log_package_levels,
+  $journald_forward_enable     = $etcd::params::journald_forward_enable
 ) inherits etcd::params {
   validate_integer([
     $snapshot_counter,
@@ -260,7 +264,7 @@ class etcd (
     $proxy_write_timeout,
     $proxy_read_timeout,
     ])
-  validate_bool($strict_reconfig_check, $client_cert_auth, $peer_client_cert_auth, $debug)
+  validate_bool($strict_reconfig_check, $client_cert_auth, $peer_client_cert_auth, $debug, $journald_forward_enable)
   validate_re($initial_cluster_state, '^(new|existing)$')
   validate_re($discovery_fallback, '^(proxy|exit)$')
   validate_absolute_path($data_dir)
