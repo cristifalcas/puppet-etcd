@@ -68,4 +68,6 @@ class etcd::params {
   # logging
   $debug = false
   $log_package_levels = undef
+
+  $journald_forward_enable = false
 }
