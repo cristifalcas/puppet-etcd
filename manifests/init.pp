@@ -64,6 +64,11 @@
 #   respond to requests from any of the listed addresses and ports.
 #   default: "http://localhost:2380,http://localhost:7001"
 #
+# [*cluster_enabled*]
+#   If set to false, all clustering options will be omitted from the final config file. Fixes some problems
+#   with older etcd versions.
+#   default: true
+#
 # [*listen_client_urls*]
 #   List of URLs to listen on for client traffic. This flag tells the etcd to accept incoming requests
 #   from the clients on the specified scheme://IP:port combinations. Scheme can be either http or https.
@@ -221,6 +226,7 @@ class etcd (
   $max_wals                    = $etcd::params::max_wals,
   $cors                        = $etcd::params::cors,
   # cluster
+  $cluster_enabled             = $etcd::params::cluster_enabled,
   $listen_peer_urls            = $etcd::params::listen_peer_urls,
   $initial_advertise_peer_urls = $etcd::params::initial_advertise_peer_urls,
   $initial_cluster             = ["${etcd_name}=http://localhost:2380", "${etcd_name}=http://localhost:7001"],
