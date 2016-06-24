@@ -21,11 +21,11 @@
 #   Defaults to running
 #
 # [*service_ensure*]
-#   Whether you want to kube daemons to start up
+#   Whether you want to etcd daemons to start up
 #   Defaults to running
 #
 # [*service_enable*]
-#   Whether you want to kube daemons to start up at boot
+#   Whether you want to etcd daemons to start up at boot
 #   Defaults to true
 #
 #  member
@@ -293,9 +293,9 @@ class etcd (
     }
   }
 
-  contain 'etcd::install'
-  contain 'etcd::config'
-  contain 'etcd::service'
+  contain '::etcd::install'
+  contain '::etcd::config'
+  contain '::etcd::service'
 
   Class['etcd::install'] ->
   Class['etcd::config'] ~>
