@@ -23,6 +23,7 @@ ETCD_PROXY_WRITE_TIMEOUT="<%= scope['etcd::proxy_write_timeout'] %>"
 ETCD_PROXY_READ_TIMEOUT="<%= scope['etcd::proxy_read_timeout'] %>"
 #
 <% end -%>
+<% if scope['etcd::cluster_enabled'] %>
 #[cluster]
 ETCD_LISTEN_PEER_URLS="<%= Array(scope['etcd::listen_peer_urls']).join(',') %>"
 ETCD_INITIAL_ADVERTISE_PEER_URLS="<%= Array(scope['etcd::initial_advertise_peer_urls']).join(',') %>"
@@ -41,6 +42,7 @@ ETCD_DISCOVERY_PROXY="<%= scope['etcd::discovery_proxy'] %>"
 <% end -%>
 ETCD_STRICT_RECONFIG_CHECK=<%= scope['etcd::strict_reconfig_check'] %>
 #
+<% end %>
 #[security]
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::cert_file']) -%>
 ETCD_CERT_FILE="<%= scope['etcd::cert_file'] %>"

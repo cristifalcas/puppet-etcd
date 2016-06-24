@@ -37,6 +37,7 @@ class etcd::params {
   $cors = undef
 
   # cluster options
+  $cluster_enabled = true
   $listen_peer_urls = ['http://localhost:2380', 'http://localhost:7001']
   $initial_advertise_peer_urls = ['http://localhost:2380']
   $initial_cluster_state = 'new'
