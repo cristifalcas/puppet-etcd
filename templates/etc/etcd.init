@@ -1,0 +1,114 @@
+#!/bin/bash
+#
+# etcd        init file for starting up the etcd daemon
+#
+# chkconfig:   2345 85 15
+# description: Starts and stops the etcd daemon
+
+### BEGIN INIT INFO
+# Provides: etcd
+# Required-Start: $local_fs $network
+# Required-Stop: $local_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Start up the etcd daemon
+# Description:       A highly-available key value store for shared configuration
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+retval="0"
+
+name="etcd"
+user="${name}"
+exec="/usr/bin/${name}"
+pidfile="/var/run/${name}.pid"
+logfile="/var/log/${name}.log"
+
+[ -e /etc/sysconfig/${name} ] && . /etc/sysconfig/${name} && export $(cut -d= -f1 /etc/sysconfig/${name}) 2>/dev/null
+
+lockfile=/var/lock/subsys/${name}
+
+start() {
+    [ -x ${exec} ] || exit 5
+
+    if [ ! -w ${logfile} ]
+    then
+      umask 077
+      touch ${logfile}
+      chown ${user}:${user} ${logfile}
+    fi
+
+    echo -n $"Starting ${name}: "
+    daemon --user ${user} --pidfile=${pidfile} "nohup ${exec} ${ETCD_OPTIONS} &>>${logfile} &"
+    retval=$?
+    echo
+
+    if [ ${retval} -eq 0 ]
+    then
+    	touch ${lockfile}
+    	pidof ${name} > ${pidfile}
+    fi
+
+    return ${retval}
+}
+
+stop() {
+    echo -n $"Stopping ${name}: "
+    if [ -f ${pidfile} ]
+    then
+        killproc -p ${pidfile} ${name}
+        retval=$?
+    fi
+    echo
+    [ ${retval} -eq 0 ] && rm -f ${lockfile}
+    return ${retval}
+}
+
+restart() {
+    stop
+    start
+}
+
+reload() {
+    false
+}
+
+rh_status() {
+    status -p ${pidfile} ${name}
+}
+
+rh_status_q() {
+    rh_status >/dev/null 2>&1
+}
+
+
+case "$1" in
+    start)
+        rh_status_q && exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart)
+        $1
+        ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    status)
+        rh_status
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 0
+        restart
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart}"
+        exit 2
+esac
+exit $?
