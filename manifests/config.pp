@@ -25,4 +25,14 @@ class etcd::config {
       command     => '/usr/bin/systemctl/systemctl daemon-reload',
     }
   }
+
+  if $::operatingsystemmajrelease == 6 {
+    file { '/etc/init.d/etcd':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => template("${module_name}/etc/etcd.init"),
+    }
+  }
 }
