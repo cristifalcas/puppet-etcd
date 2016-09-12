@@ -1,1 +1,1 @@
-include etcd
+include ::etcd
