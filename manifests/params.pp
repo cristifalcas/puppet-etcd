@@ -27,7 +27,7 @@ class etcd::params {
   $service_enable = true
   # member options
   $wal_dir = ''
-  $snapshot_counter = 10000
+  $snapshot_count = 10000
   $heartbeat_interval = 100
   $election_timeout = 1000
   $listen_client_urls = ['http://localhost:2379', 'http://localhost:4001']

@@ -1,8 +1,10 @@
 #[member]
 ETCD_NAME="<%= scope['etcd::etcd_name'] %>"
 ETCD_DATA_DIR="<%= scope['etcd::data_dir'] %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::wal_dir']) -%>
 ETCD_WAL_DIR="<%= scope['etcd::wal_dir'] %>"
-ETCD_SNAPSHOT_COUNTER="<%= scope['etcd::snapshot_counter'] %>"
+<% end -%>
+ETCD_SNAPSHOT_COUNT="<%= scope['etcd::snapshot_count'] %>"
 ETCD_HEARTBEAT_INTERVAL="<%= scope['etcd::heartbeat_interval'] %>"
 ETCD_ELECTION_TIMEOUT="<%= scope['etcd::election_timeout'] %>"
 ETCD_LISTEN_CLIENT_URLS="<%= Array(scope['etcd::listen_client_urls']).join(',') %>"
