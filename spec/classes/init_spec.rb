@@ -6,6 +6,10 @@ describe 'etcd', :type => :class do
       let(:facts) do
         facts.merge({:puppetversion => Puppet.version})
       end
+      let :params do
+        { :etcd_name        => 'name',
+        }
+      end
       it 'test default install' do
         is_expected.to compile.with_all_deps
       end
