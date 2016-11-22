@@ -2,6 +2,6 @@
 #
 class etcd::install {
   if $::etcd::manage_package {
-    package { 'etcd': ensure => $::etcd::ensure, }
+    package { $::etcd::package_name: ensure => $::etcd::ensure, }
   }
 }

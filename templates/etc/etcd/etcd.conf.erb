@@ -43,6 +43,9 @@ ETCD_DISCOVERY_FALLBACK="<%= scope['etcd::discovery_fallback'] %>"
 ETCD_DISCOVERY_PROXY="<%= scope['etcd::discovery_proxy'] %>"
 <% end -%>
 ETCD_STRICT_RECONFIG_CHECK=<%= scope['etcd::strict_reconfig_check'] %>
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::auto_compaction_retention']) -%>
+ETCD_AUTO_COMPACTION_RETENTION="<%= scope['etcd::auto_compaction_retention'] %>"
+<% end -%>
 #
 <% end %>
 #[security]
@@ -56,6 +59,9 @@ ETCD_CLIENT_CERT_AUTH=<%= scope['etcd::client_cert_auth'] %>
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::trusted_ca_file']) -%>
 ETCD_TRUSTED_CA_FILE="<%= scope['etcd::trusted_ca_file'] %>"
 <% end -%>
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::auto_tls']) -%>
+ETCD_AUTO_TLS="<%= scope['etcd::auto_tls'] %>"
+<% end -%>
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_cert_file']) -%>
 ETCD_PEER_CERT_FILE="<%= scope['etcd::peer_cert_file'] %>"
 <% end -%>
@@ -65,6 +71,9 @@ ETCD_PEER_KEY_FILE="<%= scope['etcd::peer_key_file'] %>"
 ETCD_PEER_CLIENT_CERT_AUTH=<%= scope['etcd::peer_client_cert_auth'] %>
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_trusted_ca_file']) -%>
 ETCD_PEER_TRUSTED_CA_FILE="<%= scope['etcd::peer_trusted_ca_file'] %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_auto_tls']) -%>
+ETCD_PEER_AUTO_TLS="<%= scope['etcd::peer_auto_tls'] %>"
 <% end -%>
 #
 #[logging]

@@ -8,6 +8,10 @@
 #   Passed to the docker package.
 #   Defaults to present
 #
+# [*package_name*]
+#   Set the etcd package name.
+#   Defaults to etcd
+#
 # [*manage_package*]
 #   If the module should manage the package
 #   Defaults to running
@@ -64,11 +68,6 @@
 #   respond to requests from any of the listed addresses and ports.
 #   default: "http://localhost:2380,http://localhost:7001"
 #
-# [*cluster_enabled*]
-#   If set to false, all clustering options will be omitted from the final config file. Fixes some problems
-#   with older etcd versions.
-#   default: true
-#
 # [*listen_client_urls*]
 #   List of URLs to listen on for client traffic. This flag tells the etcd to accept incoming requests
 #   from the clients on the specified scheme://IP:port combinations. Scheme can be either http or https.
@@ -91,6 +90,12 @@
 #   default: none
 #
 # cluster
+#
+# [*cluster_enabled*]
+#   If set to false, all clustering options will be omitted from the final config file. Fixes some problems
+#   with older etcd versions.
+#   default: true
+#
 # [*initial_advertise_peer_urls*]
 #   List of this member's peer URLs to advertise to the rest of the cluster. These addresses
 #   are used for communicating etcd data around the cluster. At least one must be routable to
@@ -135,6 +140,10 @@
 #   Reject reconfiguration requests that would cause quorum loss.
 #   default: false
 #
+# [*auto_compaction_retention*]
+#   Auto compaction retention for mvcc key value store in hour. 0 means disable auto compaction. Defaults to 0
+#   default: undef
+#
 # proxy
 # [*proxy*]
 #   Proxy mode setting ("off", "readonly" or "on").
@@ -178,6 +187,10 @@
 #   Path to the client server TLS trusted CA key file.
 #   default: none
 #
+# [*auto_tls*]
+#   Client TLS using generated certificates. Defaults to false
+#   default: none
+#
 # [*peer_cert_file*]
 #   Path to the peer server TLS cert file.
 #   default: none
@@ -194,6 +207,10 @@
 #   Path to the peer server TLS trusted CA file.
 #   default: none
 #
+# [*peer_auto_tls*]
+#   Peer TLS using generated certificates. Defaults to false
+#   default: none
+#
 # logging
 # [*debug*]
 #   Drop the default log level to DEBUG for all subpackages.
@@ -208,6 +225,7 @@
 #
 class etcd (
   $ensure                      = $etcd::params::ensure,
+  $package_name                = $etcd::params::package_name,
   $manage_package              = $etcd::params::manage_package,
   $manage_service              = $etcd::params::manage_service,
   $config_file_path            = $etcd::params::config_file_path,
@@ -237,6 +255,7 @@ class etcd (
   $discovery_fallback          = $etcd::params::discovery_fallback,
   $discovery_proxy             = $etcd::params::discovery_proxy,
   $strict_reconfig_check       = $etcd::params::strict_reconfig_check,
+  $auto_compaction_retention   = $etcd::params::auto_compaction_retention,
   # proxy
   $proxy                       = $etcd::params::proxy,
   $proxy_failure_wait          = $etcd::params::proxy_failure_wait,
@@ -249,10 +268,12 @@ class etcd (
   $key_file                    = $etcd::params::key_file,
   $client_cert_auth            = $etcd::params::client_cert_auth,
   $trusted_ca_file             = $etcd::params::trusted_ca_file,
+  $auto_tls                    = $etcd::params::auto_tls,
   $peer_cert_file              = $etcd::params::peer_cert_file,
   $peer_key_file               = $etcd::params::peer_key_file,
   $peer_client_cert_auth       = $etcd::params::peer_client_cert_auth,
   $peer_trusted_ca_file        = $etcd::params::peer_trusted_ca_file,
+  $peer_auto_tls               = $etcd::params::peer_auto_tls,
   # logging
   $debug                       = $etcd::params::debug,
   $log_package_levels          = $etcd::params::log_package_levels,

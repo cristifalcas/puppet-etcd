@@ -4,6 +4,7 @@
 #
 class etcd::params {
   $ensure = 'present'
+  $package_name = 'etcd'
   $manage_package = true
   $manage_service = true
 
@@ -47,6 +48,7 @@ class etcd::params {
   $discovery_fallback = 'proxy'
   $discovery_proxy = undef
   $strict_reconfig_check = false
+  $auto_compaction_retention = undef
 
   # proxy
   $proxy = undef
@@ -61,10 +63,12 @@ class etcd::params {
   $key_file = undef
   $client_cert_auth = false
   $trusted_ca_file = undef
+  $auto_tls = undef
   $peer_cert_file = undef
   $peer_key_file = undef
   $peer_client_cert_auth = false
   $peer_trusted_ca_file = undef
+  $peer_auto_tls = undef
 
   # logging
   $debug = false
