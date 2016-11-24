@@ -6,7 +6,7 @@ class etcd::config {
     content => template("${module_name}/etc/etcd/etcd.conf.erb"),
   }
 
-  if $::etcd::manage_package and $::etcd::journald_forward_enable and $::operatingsystemmajrelease == 7 {
+  if $::etcd::manage_package and $::etcd::journald_forward_enable and $::operatingsystemmajrelease == '7' {
     file { '/etc/systemd/system/etcd.service.d':
       ensure => 'directory',
       owner  => 'root',
@@ -22,11 +22,11 @@ class etcd::config {
     } ~>
     exec { 'systemctl-daemon-reload etcd_service':
       refreshonly => true,
-      command     => '/usr/bin/systemctl/systemctl daemon-reload',
+      command     => '/usr/bin/systemctl daemon-reload',
     }
   }
 
-  if $::operatingsystemmajrelease == 6 {
+  if $::operatingsystemmajrelease == '6' {
     file { '/etc/init.d/etcd':
       ensure  => file,
       owner   => 'root',
