@@ -22,7 +22,7 @@ class etcd::config {
     } ~>
     exec { 'systemctl-daemon-reload etcd_service':
       refreshonly => true,
-      command     => '/usr/bin/systemctl/systemctl daemon-reload',
+      command     => '/usr/bin/systemctl daemon-reload',
     }
   }
 
