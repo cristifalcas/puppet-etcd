@@ -1,18 +1,14 @@
 require 'spec_helper'
 
-describe 'etcd', :type => :class do
+describe 'etcd' do
   on_supported_os.each do |os, facts|
-    context "on #{os}" do
+    context "with defaults on #{os}" do
       let(:facts) do
-        facts.merge({:puppetversion => Puppet.version})
+        facts.merge({:puppetmaster => 'localhost.localdomain'})
       end
-      let :params do
-        { :etcd_name        => 'name',
-        }
-      end
-      it 'test default install' do
-        is_expected.to compile.with_all_deps
-      end
+      let(:params) { { :etcd_name => 'name' } }
+      it { should compile.with_all_deps }
+      it { should contain_class('etcd') }
     end
   end
 end

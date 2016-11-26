@@ -280,17 +280,17 @@ class etcd (
   $journald_forward_enable     = $etcd::params::journald_forward_enable
 ) inherits etcd::params {
   validate_integer([
-    $snapshot_count,
-    $heartbeat_interval,
-    $election_timeout,
-    $max_snapshots,
-    $max_wals,
-    $proxy_failure_wait,
-    $proxy_refresh_interval,
-    $proxy_dial_timeout,
-    $proxy_write_timeout,
-    $proxy_read_timeout,
-    ])
+      $snapshot_count,
+      $heartbeat_interval,
+      $election_timeout,
+      $max_snapshots,
+      $max_wals,
+      $proxy_failure_wait,
+      $proxy_refresh_interval,
+      $proxy_dial_timeout,
+      $proxy_write_timeout,
+      $proxy_read_timeout,
+  ])
   validate_bool($strict_reconfig_check, $client_cert_auth, $peer_client_cert_auth, $debug, $journald_forward_enable)
   validate_re($initial_cluster_state, '^(new|existing)$')
   validate_re($discovery_fallback, '^(proxy|exit)$')
