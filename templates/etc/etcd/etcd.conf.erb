@@ -4,13 +4,13 @@ ETCD_DATA_DIR="<%= scope['etcd::data_dir'] %>"
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::wal_dir']) -%>
 ETCD_WAL_DIR="<%= scope['etcd::wal_dir'] %>"
 <% end -%>
-ETCD_SNAPSHOT_COUNT="<%= scope['etcd::snapshot_count'] %>"
-ETCD_HEARTBEAT_INTERVAL="<%= scope['etcd::heartbeat_interval'] %>"
-ETCD_ELECTION_TIMEOUT="<%= scope['etcd::election_timeout'] %>"
+ETCD_SNAPSHOT_COUNT=<%= scope['etcd::snapshot_count'] %>
+ETCD_HEARTBEAT_INTERVAL=<%= scope['etcd::heartbeat_interval'] %>
+ETCD_ELECTION_TIMEOUT=<%= scope['etcd::election_timeout'] %>
 ETCD_LISTEN_CLIENT_URLS="<%= Array(scope['etcd::listen_client_urls']).join(',') %>"
 ETCD_ADVERTISE_CLIENT_URLS="<%= Array(scope['etcd::advertise_client_urls']).join(',') %>"
-ETCD_MAX_SNAPSHOTS="<%= scope['etcd::max_snapshots'] %>"
-ETCD_MAX_WALS="<%= scope['etcd::max_wals'] %>"
+ETCD_MAX_SNAPSHOTS=<%= scope['etcd::max_snapshots'] %>
+ETCD_MAX_WALS=<%= scope['etcd::max_wals'] %>
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::cors']) -%>
 ETCD_CORS="<%= Array(scope['etcd::cors']).join(',') %>"
 <% end -%>
@@ -18,11 +18,11 @@ ETCD_CORS="<%= Array(scope['etcd::cors']).join(',') %>"
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::real_proxy']) and scope['etcd::real_proxy'] != 'off' -%>
 #[proxy]
 ETCD_PROXY="<%= scope['etcd::real_proxy'] %>"
-ETCD_PROXY_FAILURE_WAIT="<%= scope['etcd::proxy_failure_wait'] %>"
-ETCD_PROXY_REFRESH_INTERVAL="<%= scope['etcd::proxy_refresh_interval'] %>"
-ETCD_PROXY_DIAL_TIMEOUT="<%= scope['etcd::proxy_dial_timeout'] %>"
-ETCD_PROXY_WRITE_TIMEOUT="<%= scope['etcd::proxy_write_timeout'] %>"
-ETCD_PROXY_READ_TIMEOUT="<%= scope['etcd::proxy_read_timeout'] %>"
+ETCD_PROXY_FAILURE_WAIT=<%= scope['etcd::proxy_failure_wait'] %>
+ETCD_PROXY_REFRESH_INTERVAL=<%= scope['etcd::proxy_refresh_interval'] %>
+ETCD_PROXY_DIAL_TIMEOUT=<%= scope['etcd::proxy_dial_timeout'] %>
+ETCD_PROXY_WRITE_TIMEOUT=<%= scope['etcd::proxy_write_timeout'] %>
+ETCD_PROXY_READ_TIMEOUT=<%= scope['etcd::proxy_read_timeout'] %>
 #
 <% end -%>
 <% if scope['etcd::cluster_enabled'] %>
@@ -44,7 +44,7 @@ ETCD_DISCOVERY_PROXY="<%= scope['etcd::discovery_proxy'] %>"
 <% end -%>
 ETCD_STRICT_RECONFIG_CHECK=<%= scope['etcd::strict_reconfig_check'] %>
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::auto_compaction_retention']) -%>
-ETCD_AUTO_COMPACTION_RETENTION="<%= scope['etcd::auto_compaction_retention'] %>"
+ETCD_AUTO_COMPACTION_RETENTION=<%= scope['etcd::auto_compaction_retention'] %>
 <% end -%>
 #
 <% end %>

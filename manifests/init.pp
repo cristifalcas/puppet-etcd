@@ -49,15 +49,15 @@
 #
 # [*snapshot_count*]
 #   Number of committed transactions to trigger a snapshot to disk.
-#   default: "10000"
+#   default: 10000
 #
 # [*heartbeat_interval*]
 #   Time (in milliseconds) of a heartbeat interval.
-#   default: "100"
+#   default: 100
 #
 # [*election_timeout*]
 #   Time (in milliseconds) for an election to timeout. See Documentation/tuning.md for details.
-#   default: "1000"
+#   default: 1000
 #
 # [*listen_peer_urls*]
 #   List of URLs to listen on for peer traffic. This flag tells the etcd to accept incoming
