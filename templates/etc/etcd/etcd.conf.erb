@@ -29,7 +29,9 @@ ETCD_PROXY_READ_TIMEOUT=<%= scope['etcd::proxy_read_timeout'] %>
 #[cluster]
 ETCD_LISTEN_PEER_URLS="<%= Array(scope['etcd::listen_peer_urls']).join(',') %>"
 ETCD_INITIAL_ADVERTISE_PEER_URLS="<%= Array(scope['etcd::initial_advertise_peer_urls']).join(',') %>"
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::initial_cluster']) -%>
 ETCD_INITIAL_CLUSTER="<%= Array(scope['etcd::initial_cluster']).join(',') %>"
+<% end -%>
 ETCD_INITIAL_CLUSTER_STATE="<%= scope['etcd::initial_cluster_state'] %>"
 ETCD_INITIAL_CLUSTER_TOKEN="<%= scope['etcd::initial_cluster_token'] %>"
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::discovery']) -%>
