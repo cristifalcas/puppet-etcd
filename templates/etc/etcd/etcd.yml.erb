@@ -1,0 +1,177 @@
+# Managed by Puppet
+# Source URL: https://raw.githubusercontent.com/coreos/etcd/master/etcd.conf.yml.sample
+# This is the configuration file for the etcd server.
+
+# Human-readable name for this member.
+name: "<%= scope['etcd::etcd_name'] %>"
+
+# Path to the data directory.
+data-dir: "<%= scope['etcd::data_dir'] %>"
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::wal_dir']) -%>
+# Path to the dedicated wal directory.
+wal-dir: "<%= scope['etcd::wal_dir'] %>"
+<% end -%>
+
+# Number of committed transactions to trigger a snapshot to disk.
+snapshot-count: <%= scope['etcd::snapshot_count'] %>
+
+# Time (in milliseconds) of a heartbeat interval.
+heartbeat-interval: <%= scope['etcd::heartbeat_interval'] %>
+
+# Time (in milliseconds) for an election to timeout.
+election-timeout: <%= scope['etcd::election_timeout'] %>
+
+# Raise alarms when backend size exceeds the given quota. 0 means use the
+# default quota.
+quota-backend-bytes: <%= scope['etcd::quota_backend_bytes'] %>
+
+<% if scope['etcd::cluster_enabled'] -%>
+# List of comma separated URLs to listen on for peer traffic.
+listen-peer-urls: "<%= Array(scope['etcd::listen_peer_urls']).join(',') %>"
+<% end -%>
+
+# List of comma separated URLs to listen on for client traffic.
+listen-client-urls: "<%= Array(scope['etcd::listen_client_urls']).join(',') %>"
+
+# Maximum number of snapshot files to retain (0 is unlimited).
+max-snapshots: <%= scope['etcd::max_snapshots'] %>
+
+# Maximum number of wal files to retain (0 is unlimited).
+max-wals: <%= scope['etcd::max_wals'] %>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::cors']) -%>
+# Comma-separated white list of origins for CORS (cross-origin resource sharing).
+cors: "<%= Array(scope['etcd::cors']).join(',') %>"
+<% end -%>
+
+# List of this member's client URLs to advertise to the public.
+# The URLs needed to be a comma-separated list.
+advertise-client-urls: "<%= Array(scope['etcd::advertise_client_urls']).join(',') %>"
+
+<% if scope['etcd::cluster_enabled'] -%>
+# List of this member's peer URLs to advertise to the rest of the cluster.
+# The URLs needed to be a comma-separated list.
+initial-advertise-peer-urls: "<%= Array(scope['etcd::initial_advertise_peer_urls']).join(',') %>"
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::discovery']) -%>
+# Discovery URL used to bootstrap the cluster.
+discovery: "<%= scope['etcd::discovery'] %>"
+<% end -%>
+
+# Valid values include 'exit', 'proxy'
+discovery-fallback: "<%= scope['etcd::discovery_fallback'] %>"
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::discovery_proxy']) -%>
+# HTTP proxy to use for traffic to discovery service.
+discovery-proxy: "<%= scope['etcd::discovery_proxy'] %>"
+<% end -%>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::discovery_srv']) -%>
+# DNS domain used to bootstrap initial cluster.
+discovery-srv: "<%= scope['etcd::discovery_srv'] %>"
+<% end -%>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::initial_cluster']) -%>
+# Initial cluster configuration for bootstrapping.
+initial-cluster: "<%= Array(scope['etcd::initial_cluster']).join(',') %>"
+<% end -%>
+
+# Initial cluster token for the etcd cluster during bootstrap.
+initial-cluster-token: "<%= scope['etcd::initial_cluster_token'] %>"
+
+# Initial cluster state ('new' or 'existing').
+initial-cluster-state: "<%= scope['etcd::initial_cluster_state'] %>"
+
+# Reject reconfiguration requests that would cause quorum loss.
+strict-reconfig-check: <%= scope['etcd::strict_reconfig_check'] %>
+
+# Auto compaction retention for mvcc key value store in hour. 0 means disable it.
+auto-compaction-retention: <%= scope['etcd::auto_compaction_retention'] %>
+
+# Force to create a new one member cluster.
+force-new-cluster: false
+<% end -%>
+
+# Accept etcd V2 client requests
+enable-v2: <%= scope['etcd::enable_v2'] %>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::real_proxy']) and scope['etcd::real_proxy'] != 'off' -%>
+# Valid values include 'on', 'readonly', 'off'
+proxy: "<%= scope['etcd::real_proxy'] %>"
+
+# Time (in milliseconds) an endpoint will be held in a failed state.
+proxy-failure-wait: <%= scope['etcd::proxy_failure_wait'] %>
+
+# Time (in milliseconds) of the endpoints refresh interval.
+proxy-refresh-interval: <%= scope['etcd::proxy_refresh_interval'] %>
+
+# Time (in milliseconds) for a dial to timeout.
+proxy-dial-timeout: <%= scope['etcd::proxy_dial_timeout'] %>
+
+# Time (in milliseconds) for a write to timeout.
+proxy-write-timeout: <%= scope['etcd::proxy_write_timeout'] %>
+
+# Time (in milliseconds) for a read to timeout.
+proxy-read-timeout: <%= scope['etcd::proxy_read_timeout'] %>
+<% end -%>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::cert_file']) -%>
+client-transport-security:
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::cert_file']) -%>
+  # Path to the client server TLS cert file.
+  cert-file: "<%= scope['etcd::cert_file'] %>"
+<% end -%>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::key_file']) -%>
+  # Path to the client server TLS key file.
+  key-file:
+<% end -%>
+
+  # Enable client cert authentication.
+  client-cert-auth: <%= scope['etcd::client_cert_auth'] %>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::trusted_ca_file']) -%>
+  # Path to the client server TLS trusted CA key file.
+  trusted-ca-file: "<%= scope['etcd::trusted_ca_file'] %>"
+<% end -%>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::auto_tls']) -%>
+  # Client TLS using generated certificates
+  auto-tls: "<%= scope['etcd::auto_tls'] %>"
+<% end -%>
+<% end -%>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_cert_file']) -%>
+peer-transport-security:
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_cert_file']) -%>
+  # Path to the peer server TLS cert file.
+  cert-file: "<%= scope['etcd::peer_cert_file'] %>"
+<% end -%>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_key_file']) -%>
+  # Path to the peer server TLS key file.
+  key-file: "<%= scope['etcd::peer_key_file'] %>"
+<% end -%>
+
+  # Enable peer client cert authentication.
+  client-cert-auth: <%= scope['etcd::peer_client_cert_auth'] %>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_trusted_ca_file']) -%>
+  # Path to the peer server TLS trusted CA key file.
+  trusted-ca-file: "<%= scope['etcd::peer_trusted_ca_file'] %>"
+<% end -%>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::peer_auto_tls']) -%>
+  # Peer TLS using generated certificates.
+  auto-tls: false
+<% end -%>
+<% end -%>
+
+# Enable debug-level logging for etcd.
+debug: <%= scope['etcd::debug'] %>
+
+<% unless [nil, :undefined, :undef, ''].include?(scope['etcd::log_package_levels']) -%>
+# Specify a particular log level for each etcd package (eg: 'etcdmain=CRITICAL,etcdserver=DEBUG'.
+log-package-levels: "<%= scope['etcd::log_package_levels'] %>"
+<% end -%>
