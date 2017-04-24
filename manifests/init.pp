@@ -59,6 +59,10 @@
 #   Time (in milliseconds) for an election to timeout. See Documentation/tuning.md for details.
 #   default: 1000
 #
+# [*quota_backend_bytes*]
+#   Raise alarms when backend size exceeds the given quota. 0 means use the default quota.
+#   default: 0
+#
 # [*listen_peer_urls*]
 #   List of URLs to listen on for peer traffic. This flag tells the etcd to accept incoming
 #   requests from its peers on the specified scheme://IP:port combinations. Scheme can be either
@@ -88,6 +92,10 @@
 # [*cors*]
 #   Comma-separated white list of origins for CORS (cross-origin resource sharing).
 #   default: none
+#
+# [*enable_v2*]
+#   Accept etcd V2 client requests.
+#   default: true
 #
 # cluster
 #
@@ -238,11 +246,13 @@ class etcd (
   $snapshot_count              = $etcd::params::snapshot_count,
   $heartbeat_interval          = $etcd::params::heartbeat_interval,
   $election_timeout            = $etcd::params::election_timeout,
+  $quota_backend_bytes         = $etcd::params::quota_backend_bytes,
   $listen_client_urls          = $etcd::params::listen_client_urls,
   $advertise_client_urls       = $etcd::params::advertise_client_urls,
   $max_snapshots               = $etcd::params::max_snapshots,
   $max_wals                    = $etcd::params::max_wals,
   $cors                        = $etcd::params::cors,
+  $enable_v2                   = $etcd::params::enable_v2,
   # cluster
   $cluster_enabled             = $etcd::params::cluster_enabled,
   $listen_peer_urls            = $etcd::params::listen_peer_urls,
@@ -283,6 +293,7 @@ class etcd (
       $snapshot_count,
       $heartbeat_interval,
       $election_timeout,
+      $quota_backend_bytes,
       $max_snapshots,
       $max_wals,
       $proxy_failure_wait,
@@ -291,7 +302,7 @@ class etcd (
       $proxy_write_timeout,
       $proxy_read_timeout,
   ])
-  validate_bool($strict_reconfig_check, $client_cert_auth, $peer_client_cert_auth, $debug, $journald_forward_enable)
+  validate_bool($strict_reconfig_check, $client_cert_auth, $peer_client_cert_auth, $debug, $journald_forward_enable, $enable_v2)
   validate_re($initial_cluster_state, '^(new|existing)$')
   validate_re($discovery_fallback, '^(proxy|exit)$')
   validate_absolute_path($data_dir)

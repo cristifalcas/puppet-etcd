@@ -6,6 +6,14 @@ class etcd::config {
     content => template("${module_name}/etc/etcd/etcd.conf.erb"),
   }
 
+  file { $::etcd::config_yaml_path:
+    ensure  => 'file',
+    owner   => 'etcd',
+    group   => 'etcd',
+    mode    => '0640',
+    content => template("${module_name}/etc/etcd/etcd.yml.erb"),
+  }
+
   if $::etcd::manage_package and $::etcd::journald_forward_enable and $::operatingsystemmajrelease == '7' {
     file { '/etc/systemd/system/etcd.service.d':
       ensure => 'directory',

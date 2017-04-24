@@ -24,6 +24,7 @@ class etcd::params {
     }
   }
 
+  $config_yaml_path = '/etc/etcd/etcd.yml'
   $service_ensure = 'running'
   $service_enable = true
   # member options
@@ -36,6 +37,8 @@ class etcd::params {
   $max_snapshots = 5
   $max_wals = 5
   $cors = undef
+  $quota_backend_bytes = 0
+  $enable_v2 = true
 
   # cluster options
   $cluster_enabled = true

@@ -14,6 +14,7 @@ ETCD_MAX_WALS=<%= scope['etcd::max_wals'] %>
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::cors']) -%>
 ETCD_CORS="<%= Array(scope['etcd::cors']).join(',') %>"
 <% end -%>
+ETCD_ENABLE_V2=<%= scope['etcd::enable_v2'] %>
 #
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::real_proxy']) and scope['etcd::real_proxy'] != 'off' -%>
 #[proxy]
@@ -48,6 +49,7 @@ ETCD_STRICT_RECONFIG_CHECK=<%= scope['etcd::strict_reconfig_check'] %>
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::auto_compaction_retention']) -%>
 ETCD_AUTO_COMPACTION_RETENTION=<%= scope['etcd::auto_compaction_retention'] %>
 <% end -%>
+ETCD_FORCE_NEW_CLUSTER=false
 #
 <% end %>
 #[security]
