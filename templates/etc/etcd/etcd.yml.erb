@@ -125,7 +125,7 @@ client-transport-security:
 
 <% unless [nil, :undefined, :undef, ''].include?(scope['etcd::key_file']) -%>
   # Path to the client server TLS key file.
-  key-file:
+  key-file: "<%= scope['etcd::key_file'] %>"
 <% end -%>
 
   # Enable client cert authentication.
