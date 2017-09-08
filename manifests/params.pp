@@ -10,10 +10,16 @@ class etcd::params {
 
   case $::osfamily {
     'RedHat' : {
-      case $::operatingsystemmajrelease {
-        '6'     : { $config_file_path = '/etc/sysconfig/etcd' }
-        '7'     : { $config_file_path = '/etc/etcd/etcd.conf' }
-        default : { fail('Unsupported RedHat release.') }
+      case $::operatingsystem {
+        'RedHat', 'CentOS', 'OracleLinux', 'Scientific': {
+          case $::operatingsystemmajrelease {
+            '6'     : { $config_file_path = '/etc/sysconfig/etcd' }
+            '7'     : { $config_file_path = '/etc/etcd/etcd.conf' }
+            default : { fail('Unsupported RedHat release.') }
+          }
+        }
+        'Fedora' : { $config_file_path = '/etc/etcd/etcd.conf' }
+        default  : { fail('Unsupported RedHat release') }
       }
     }
     'Debian' : {
