@@ -7,6 +7,7 @@ ETCD_WAL_DIR="<%= scope['etcd::wal_dir'] %>"
 ETCD_SNAPSHOT_COUNT=<%= scope['etcd::snapshot_count'] %>
 ETCD_HEARTBEAT_INTERVAL=<%= scope['etcd::heartbeat_interval'] %>
 ETCD_ELECTION_TIMEOUT=<%= scope['etcd::election_timeout'] %>
+ETCD_QUOTA_BACKEND_BYTES=<%= scope['etcd::quota_backend_bytes'] %>
 ETCD_LISTEN_CLIENT_URLS="<%= Array(scope['etcd::listen_client_urls']).join(',') %>"
 ETCD_ADVERTISE_CLIENT_URLS="<%= Array(scope['etcd::advertise_client_urls']).join(',') %>"
 ETCD_MAX_SNAPSHOTS=<%= scope['etcd::max_snapshots'] %>
