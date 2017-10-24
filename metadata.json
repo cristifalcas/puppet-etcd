@@ -1,6 +1,6 @@
 {
 	"name": "cristifalcas-etcd",
-	"version": "1.11.0",
+	"version": "1.12.1",
 	"author": "Cristian Falcas",
 	"summary": "Installs and configures etcd",
 	"license": "Apache-2.0",
@@ -34,7 +34,9 @@
 			]
 		},{
 			"operatingsystem": "Fedora",
-			"operatingsystemrelease": [ "21"
+			"operatingsystemrelease": [ "24",
+				"25",
+				"26"
 			]
 		},{
 			"operatingsystem": "Debian",

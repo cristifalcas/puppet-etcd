@@ -13,7 +13,9 @@ class etcd::params {
       case $::operatingsystemmajrelease {
         '6'     : { $config_file_path = '/etc/sysconfig/etcd' }
         '7'     : { $config_file_path = '/etc/etcd/etcd.conf' }
+        '24'    : { $config_file_path = '/etc/etcd/etcd.conf' }
         '25'    : { $config_file_path = '/etc/etcd/etcd.conf' }
+        '26'    : { $config_file_path = '/etc/etcd/etcd.conf' }
         default : { fail('Unsupported RedHat release.') }
       }
     }
