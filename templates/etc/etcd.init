@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# Managed by Puppet
+#
 # etcd        init file for starting up the etcd daemon
 #
 # chkconfig:   2345 85 15
