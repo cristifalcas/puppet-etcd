@@ -6,3 +6,4 @@ spec/fixtures/*
 .librarian
 pkg/*
 
+Gemfile.lock
