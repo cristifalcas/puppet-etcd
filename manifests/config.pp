@@ -3,10 +3,10 @@
 class etcd::config {
   if $::osfamily == 'Ubuntu' {
     file { '/etc/etcd':
-        ensure => 'directory',
-        owner  => 'etcd',
-        group  => 'etcd',
-        mode   => '0755',
+      ensure => 'directory',
+      owner  => 'etcd',
+      group  => 'etcd',
+      mode   => '0755',
     }
   }
 
