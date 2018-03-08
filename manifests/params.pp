@@ -20,7 +20,7 @@ class etcd::params {
       }
     }
     'Debian' : {
-      $config_file_path = '/etc/default/etcd.conf'
+      $config_file_path = '/etc/default/etcd'
     }
     default  : {
       fail('Unsupported OS.')
