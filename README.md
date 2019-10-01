@@ -1,3 +1,5 @@
+# This repos is archived. Please use https://github.com/puppet-etcd/puppet-etcd from now on #
+
 # etcd #
 [![Build Status](https://travis-ci.org/cristifalcas/puppet-etcd.png?branch=master)](https://travis-ci.org/cristifalcas/puppet-etcd)
 
